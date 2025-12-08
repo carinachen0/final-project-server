@@ -28,15 +28,20 @@ const ash = require('express-async-handler');
 // Automatically catches any error and sends to Routing Error-Handling Middleware (app.js)
 // It is the same as using "try-catch" and calling next(error)
 router.get('/', ash(async(req, res) => {
+  //find stuent by 
   let students = await Student.findAll({include: [Campus]});
   res.status(200).json(students);  // Status code 200 OK - request succeeded
 }));
 
 /* GET STUDENT BY ID */
 router.get('/:id', ash(async(req, res) => {
-  // Find student by Primary Key
+  // Find student by Primary Key (id)
   let student = await Student.findByPk(req.params.id, {include: [Campus]});  // Get the student and its associated campus
-  res.status(200).json(student);  // Status code 200 OK - request succeeded
+  if (student) {
+    res.status(200).json(student);  // Status code 200 OK - request succeeded
+  } else {
+    res.status(404).json({error: 'Student not found'}); // Error handling: status code 404 (Not Found)
+  }
 }));
 
 /* ADD NEW STUDENT */
@@ -59,12 +64,28 @@ router.delete('/:id', function(req, res, next) {
 
 /* EDIT STUDENT */
 router.put('/:id', ash(async(req, res) => {
-  await Student.update(req.body,
-        { where: {id: req.params.id} }
-  );
-  // Find student by Primary Key
-  let student = await Student.findByPk(req.params.id);
-  res.status(201).json(student);  // Status code 201 Created - successful creation of a resource
+  const { campusId, ...studentData } = req.body; //separates campusID from other student data to prevent accidental modification  
+  const student = await Student.findByPk(req.params.id); //uses sequelize to find and fetch a student based on id
+
+  if (student) { // check if student exists
+    await student.update(studentData); //update student fields
+
+    if (campusId !== undefined) { //if a valid campusId was provided in the request
+      const campus = await Campus.findByPk(campusId); 
+      
+      if (!campus) { //Check if campus. exists. If not, throw an error
+        throw new Error('Campus ID not found');
+      }
+      await student.setCampus(campus); // otherwise, update the student's campus association 
+    }
+  }
+
+  const updatedStudent = await Student.findByPk(req.params.id, { include: [Campus] }); //fetch updated student with campus and return data to client
+  if (updatedStudent) {
+    res.status(200).json(updatedStudent);  // Status code 200 OK - request succeeded
+  } else {
+    res.status(404).json({error: 'Student not found'}); // Error handling: status code 404 (Not Found)
+  }
 }));
 
 // Export router, so that it can be imported to construct the apiRouter (app.js)
