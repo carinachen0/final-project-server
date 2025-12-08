@@ -20,6 +20,14 @@ const Campus = db.define("campus", {
 
   description: {
     type: Sequelize.STRING,
+  },
+
+  imageUrl: {
+    type: Sequelize.STRING,
+    validate: {
+      isUrl: true // checks if string follows the format of a valid url 
+    },
+    defaultValue:'https://macaulay.cuny.edu/wp-content/uploads/2016/07/college-of-staten-island-main-walkway-lamp-posts-fountain-214.jpg' // placeholder img
   }
 });
 
