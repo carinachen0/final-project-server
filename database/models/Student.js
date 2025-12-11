@@ -28,7 +28,7 @@ const Student = db.define("student", {
 
   imageUrl: {
     type:Sequelize.STRING,
-    valiidate: {
+    validate: {
       isUrl: true, //checks if its a valid URL
     },
     defaultValue: 'https://t3.ftcdn.net/jpg/02/92/61/84/240_F_292618444_93dQ496UFT4d6Eu0dlRQYgvlkK9snCMm.jpg' // placeholder image
