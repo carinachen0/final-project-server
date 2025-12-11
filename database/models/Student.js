@@ -36,7 +36,7 @@ const Student = db.define("student", {
 
   gpa: {
     type: Sequelize.DECIMAL(2,1), //sets precision to GPA format (2 digits total, 1 digit after decimal)
-    valiidate: { 
+    validate: { 
       // set boundary limits for a valid GPA
       isDecimal: true,
       min: 0.0,
