@@ -27,7 +27,7 @@ const Campus = db.define("campus", {
     validate: {
       isUrl: true // checks if string follows the format of a valid url 
     },
-    defaultValue:'https://macaulay.cuny.edu/wp-content/uploads/2016/07/college-of-staten-island-main-walkway-lamp-posts-fountain-214.jpg' // placeholder img
+    defaultValue:'https://image-static.collegedunia.com/public/college_data/images/studyabroad/appImage/college_2187_29-15:05_Purdue_University.jpeg' // placeholder img
   }
 });
 
