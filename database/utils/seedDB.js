@@ -30,6 +30,10 @@ const seedDB = async () => {
 	const dummy_student = await Student.create({
 		firstname: "Joe",
       lastname: "Smith",
+	  email: "joesmith@gmail.com",
+	  imageUrl: 'https://static0.colliderimages.com/wordpress/wp-content/uploads/2021/11/hunter-x-hunter-killua-zodyck.jpg?q=50&fit=crop&w=825&dpr=1.5',
+	  gpa: 3.5,
+	  campusId: 2,
 	});
 	// Create a new student for a campus
 	const dummy_student2 = await Student.create({
@@ -37,7 +41,7 @@ const seedDB = async () => {
       lastname: "Johnson",
 	});
 
-	// Add students to campuses
+	// Add students to campusesgit statsu
 	await dummy_student.setCampus(dummy_campus);
 	await dummy_student2.setCampus(dummy_campus2);
 }
