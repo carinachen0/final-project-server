@@ -2,6 +2,11 @@
 
 This repository is the server (back-end) starter code for Final Project - Full-Stack CRUD Application.
 
+### Group member name
+- Name: Carina Chen
+- Github username: carinachen0
+- I worked alone for this assignment
+
 **Prerequisites**
 - Install PostgreSQL (Postgres) [[link](https://www.postgresql.org/download/)] - required to run the database
 - Install Postman [[link](https://www.postman.com/downloads/)] - optional tool for API testing 
